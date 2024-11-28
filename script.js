@@ -1,14 +1,20 @@
-// Configuração do EmailJS
-const form = document.getElementById("form-contato");
-form.addEventListener("submit", function (event) {
+emailjs.init("YOUR_USER_ID");
+document.getElementById('contactForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var message = document.getElementById('message').value;
 
-    // Enviar email com o EmailJS
-    emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", form)
+    var templateParams = {
+        name: name,
+        email: email,
+        message: message
+    };
+
+    emailjs.send('service_your_service_id', 'template_your_template_id', templateParams)
         .then(function(response) {
-            alert("Mensagem enviada com sucesso!");
-            form.reset();  // Limpa os campos após o envio
+            alert('Mensagem enviada com sucesso!');
         }, function(error) {
-            alert("Erro ao enviar mensagem. Tente novamente.");
+            alert('Erro ao enviar mensagem, tente novamente!');
         });
 });

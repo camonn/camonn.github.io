@@ -3,194 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfólio - Camonn Ritse</title>
+    <title>Meu Portfólio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- CDN do Font Awesome -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        /* Animações e efeitos */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Animação de fundo no Home */
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .gradient-bg {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
         }
 
-        .animate-header {
-            animation: fadeIn 1s ease-out;
+        /* Animação para os ícones de redes sociais */
+        .social-icon {
+            transition: transform 0.3s ease, color 0.3s ease;
         }
-
-        /* Efeito de hover para os ícones */
         .social-icon:hover {
-            transform: scale(1.2);
-            transition: transform 0.3s ease-in-out;
+            transform: scale(1.2) rotate(20deg);
+            color: #f0f0f0;
         }
 
-        /* Efeito de transição para as seções */
-        section {
-            transition: all 0.5s ease;
+        /* Animação de hover para cards de projetos */
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
         }
 
-        /* Efeito parallax no background */
-        .parallax {
-            background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
-            background-size: cover;
-            height: 100vh;
-        }
-
-        /* Melhorias no formulário */
-        .form-input {
-            border-radius: 8px;
-            border: 2px solid #444;
+        /* Estilos para Navbar e seções mais escuras */
+        .dark-bg {
             background-color: #333;
             color: white;
-            padding: 1rem;
-            width: 100%;
-            transition: border-color 0.3s ease;
         }
 
-        .form-input:focus {
-            border-color: #ffb800;
-            outline: none;
+        .section-bg {
+            background-color: #2d2d2d;
+            color: white;
         }
 
-        .btn-submit {
-            background-color: #ffb800;
-            color: #222;
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
-            font-weight: bold;
-            text-transform: uppercase;
-            width: 100%;
-            transition: background-color 0.3s ease;
+        .section-bg h2, .section-bg p {
+            transition: opacity 0.3s ease;
         }
 
-        .btn-submit:hover {
-            background-color: #ff9900;
+        .section-bg:hover h2, .section-bg:hover p {
+            opacity: 0.8;
+        }
+
+        /* Animação nos títulos das seções */
+        .section-title {
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Responsividade para garantir que as seções fiquem bem ajustadas */
+        @media (max-width: 768px) {
+            .social-icon {
+                font-size: 2rem;
+            }
+            .project-card {
+                margin: 10px 0;
+            }
+            .project-card img {
+                height: 200px;
+            }
+            .section-bg h2 {
+                font-size: 2rem;
+            }
+            .section-bg p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .home-text {
+                font-size: 1.5rem;
+            }
+            .home-icons {
+                flex-direction: column;
+                gap: 20px;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white font-sans">
+<body class="bg-gray-100 text-gray-900 font-sans">
 
-    <!-- Header -->
-    <header class="bg-gray-800 py-6 animate-header shadow-lg">
-        <div class="container mx-auto flex justify-between items-center px-6">
-            <a href="#home" class="text-3xl font-bold text-yellow-500">Camonn Ritse</a>
-            <nav class="space-x-6">
-                <a href="#home" class="text-lg hover:text-yellow-400 transition duration-300">Home</a>
-                <a href="#sobre" class="text-lg hover:text-yellow-400 transition duration-300">Sobre Mim</a>
-                <a href="#projetos" class="text-lg hover:text-yellow-400 transition duration-300">Projetos</a>
-                <a href="#contato" class="text-lg hover:text-yellow-400 transition duration-300">Contato</a>
-            </nav>
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 bg-gray-800 text-white py-4 shadow-md z-50">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+            <a href="#home" class="text-2xl font-semibold hover:text-gray-300 transition duration-300">Meu Portfólio</a>
+            <ul class="flex space-x-8">
+                <li><a href="#home" class="hover:text-gray-300 transition duration-300">Home</a></li>
+                <li><a href="#about" class="hover:text-gray-300 transition duration-300">Sobre Mim</a></li>
+                <li><a href="#projects" class="hover:text-gray-300 transition duration-300">Projetos</a></li>
+                <li><a href="#contact" class="hover:text-gray-300 transition duration-300">Contato</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
     <!-- Home Section -->
-    <section id="home" class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-gray-900 to-black text-center py-40">
-        <h1 class="text-5xl font-extrabold mb-4 text-yellow-500">Bem-vindo ao meu Portfólio!</h1>
-        <p class="text-xl mb-8 text-gray-300">Desenvolvedor Web Front-End e Aspirante a Full-Stack</p>
-        <div class="flex space-x-6 mt-6">
-            <a href="https://github.com/camonn" target="_blank" class="text-4xl text-yellow-500 social-icon">
-                <i class="fab fa-github"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/camonn-ritse-092847270/" target="_blank" class="text-4xl text-yellow-500 social-icon">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="https://www.instagram.com/camonnritse15" target="_blank" class="text-4xl text-yellow-500 social-icon">
-                <i class="fab fa-instagram"></i>
-            </a>
+    <section id="home" class="h-screen flex items-center justify-center gradient-bg">
+        <div class="text-center text-white">
+            <h1 class="text-5xl font-bold mb-6 home-text">Bem-vindo ao Meu Portfólio</h1>
+            <p class="text-lg mb-8 home-text">Desenvolvedor Web Fullstack | Estudante de Sistemas para Internet</p>
+            <div class="flex justify-center space-x-8 home-icons">
+                <a href="https://github.com/camonn" target="_blank" class="text-4xl social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/camonn-ritse-092847270/" target="_blank" class="text-4xl social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://instagram.com/camonnritse15" target="_blank" class="text-4xl social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- Sobre Mim Section -->
-    <section id="sobre" class="container mx-auto px-6 py-20 bg-gray-800">
-        <h2 class="text-4xl font-bold text-yellow-500 text-center mb-8">Sobre Mim</h2>
-        <p class="text-lg text-gray-300 text-center leading-relaxed">
-            Sou um desenvolvedor front-end com sólida experiência em HTML, CSS e JavaScript. Tenho domínio de Git para controle de versão e estou aprofundando minhas habilidades em tecnologias como React e Node.js. Meu objetivo é evoluir para um desenvolvedor Full-Stack, explorando também ferramentas como SQL, Python e PHP. Busco novos desafios que me permitam crescer profissionalmente e contribuir de forma significativa para projetos inovadores.
-        </p>
+    <section id="about" class="py-16 px-6 section-bg">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-6 section-title">Sobre Mim</h2>
+            <p class="text-lg">
+                Possuo uma base sólida em HTML, CSS, JavaScript e Git, com experiência prática em projetos colaborativos que envolvem essas tecnologias. Também tenho conhecimentos iniciais em PHP, Python e SQL, e estou continuamente ampliando meu domínio sobre React.js e Node.js. Como estudante de Sistemas para Internet, estou comprometido em me tornar um desenvolvedor web fullstack altamente capacitado, com foco em trabalhar em equipe para criar soluções inovadoras e impactantes. Tenho uma abordagem proativa e estou sempre em busca de desafios que me permitam crescer tecnicamente e contribuir com minha experiência em ambientes colaborativos.
+            </p>
+        </div>
     </section>
 
-<!-- Projetos Section -->
-<section id="projetos" class="bg-gray-800 py-20">
-    <div class="container mx-auto px-6">
-        <h2 class="text-4xl font-bold text-yellow-500 text-center mb-12">Meus Projetos</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            <!-- Projeto 1 -->
-            <a href="https://github.com/camonn/Project-Fight-JS" target="_blank" class="relative block bg-gray-700 rounded-lg p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-500 group">
-                <div class="h-48 bg-yellow-500 rounded mb-4 group-hover:opacity-60 transition-opacity duration-300"></div>
-                <h5 class="text-xl font-semibold text-yellow-500 mb-2 group-hover:text-yellow-400 transition duration-300">Project Fight</h5>
-                <p class="text-gray-300 mb-4 group-hover:text-gray-100 transition duration-300">Projeto de um jogo de luta usando JavaScript</p>
-                <p class="text-yellow-400 font-medium group-hover:underline transition duration-300">Ver no GitHub</p>
-
-                <!-- Detalhes do Projeto que aparecem no hover -->
-                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4 rounded-lg">
-                    <h3 class="text-xl font-semibold text-white">Detalhes do Projeto 1</h3>
-                    <p class="text-white text-sm mt-2">O "Project-Fight-JS" é um jogo de luta criado com JavaScript, HTML e CSS, projetado para oferecer uma experiência interativa e envolvente. Com controles responsivos, animações fluídas e efeitos sonoros imersivos, o projeto demonstra habilidades na manipulação do DOM e na criação de interfaces dinâmicas. Ele destaca a capacidade de desenvolver jogos que combinam lógica de programação com elementos visuais e auditivos para aprimorar a experiência do usuário</p>
+    <!-- Projetos Section -->
+    <section id="projects" class="py-16 px-6 section-bg">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-6 section-title">Meus Projetos</h2>
+            <p class="text-lg mb-8">Veja os projetos que já desenvolvi e conheça mais sobre o meu trabalho!</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Projeto 1 -->
+                <div class="bg-gray-800 text-white shadow-lg rounded-lg overflow-hidden project-card transform hover:scale-105 transition duration-300 ease-in-out">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFedAzYKKLb-DOba4pISHkeCDPOtjLQGpPHA&s" alt="Projeto 1" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Battery Project</h3>
+                        <p class="text-gray-400">The "battery-project" repository is a basic web project featuring an HTML structure along with CSS and JavaScript. It appears to be a simple, static website potentially designed to showcase an interactive or informative feature, such as simulating a battery display or other elements. The project includes files for the structure (index.html), styling (style.css), and functionality (script.js), though additional details or a specific description are not provided.</p>
+                        <a href="https://github.com/camonn/battery-project" target="_blank" class="text-blue-500 hover:underline mt-4 block">Ver no GitHub</a>
+                    </div>
                 </div>
-            </a>
-
-            <!-- Projeto 2 -->
-            <a href="https://github.com/camonn/Project-Blog-Fake" target="_blank" class="relative block bg-gray-700 rounded-lg p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-500 group">
-                <div class="h-48 bg-yellow-500 rounded mb-4 group-hover:opacity-60 transition-opacity duration-300"></div>
-                <h5 class="text-xl font-semibold text-yellow-500 mb-2 group-hover:text-yellow-400 transition duration-300">Project Blog Fake</h5>
-                <p class="text-gray-300 mb-4 group-hover:text-gray-100 transition duration-300">Projeto de um Blog Fake usando API</p>
-                <p class="text-yellow-400 font-medium group-hover:underline transition duration-300">Ver no GitHub</p>
-
-                <!-- Detalhes do Projeto que aparecem no hover -->
-                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4 rounded-lg">
-                    <h3 class="text-xl font-semibold text-white">Detalhes do Projeto 2</h3>
-                    <p class="text-white text-sm mt-2">O "Project-Blog-Fake" é uma aplicação web que simula um blog, desenvolvida com HTML, CSS e JavaScript. Este projeto visa criar uma interface de blog com postagens fictícias, permitindo aos usuários navegar e interagir com conteúdos de forma intuitiva. Ele demonstra habilidades em construção de layouts responsivos, estilização avançada e manipulação do DOM para dinamizar a experiência do usuário. O "Project-Blog-Fake" destaca a capacidade de desenvolver aplicações voltadas para apresentação de conteúdo e experiências interativas na web.</p>
+                <!-- Projeto 2 -->
+                <div class="bg-gray-800 text-white shadow-lg rounded-lg overflow-hidden project-card transform hover:scale-105 transition duration-300 ease-in-out">
+                    <img src="data:image/png;base64,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" alt="Projeto 2" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Project Blog Fake</h3>
+                        <p class="text-gray-400">The repository "Project-Blog-Fake" is a simple web project built using HTML and JavaScript. It aims to simulate a blog structure, although detailed descriptions or features are not provided. The project likely involves creating a mock blog interface, allowing users to interact with it through basic dynamic elements, such as adding and viewing posts. This project is an example of beginner-level web development skills using core web technologies</p>
+                        <a href="https://github.com/camonn/Project-Blog-Fake" target="_blank" class="text-blue-500 hover:underline mt-4 block">Ver no GitHub</a>
+                    </div>
                 </div>
-            </a>
-
-            <!-- Projeto 3 -->
-            <a href="https://github.com/camonn/login-mysql" target="_blank" class="relative block bg-gray-700 rounded-lg p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-500 group">
-                <div class="h-48 bg-yellow-500 rounded mb-4 group-hover:opacity-60 transition-opacity duration-300"></div>
-                <h5 class="text-xl font-semibold text-yellow-500 mb-2 group-hover:text-yellow-400 transition duration-300">Project Validação Form</h5>
-                <p class="text-gray-300 mb-4 group-hover:text-gray-100 transition duration-300">Projeto de validação de form Faculdade</p>
-                <p class="text-yellow-400 font-medium group-hover:underline transition duration-300">Ver no GitHub</p>
-
-                <!-- Detalhes do Projeto que aparecem no hover -->
-                <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4 rounded-lg">
-                    <h3 class="text-xl font-semibold text-white">Detalhes do Projeto 3</h3>
-                    <p class="text-white text-sm mt-2">O projeto "login-mysql" é uma aplicação que implementa um sistema de login utilizando uma combinação de tecnologias como HTML, CSS, PHP e MySQL. Ele exemplifica um fluxo completo de autenticação de usuários, incluindo a validação de credenciais e a integração com um banco de dados para armazenar e verificar informações. Este projeto demonstra habilidades no desenvolvimento de back-end com PHP, manipulação de dados com MySQL e a criação de interfaces front-end que se conectam a um servidor para funcionalidades de login seguras e eficientes.</p>
+                <!-- Projeto 3 -->
+                <div class="bg-gray-800 text-white shadow-lg rounded-lg overflow-hidden project-card transform hover:scale-105 transition duration-300 ease-in-out">
+                    <img src="data:image/jpeg;base64,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" alt="Projeto 3" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Project Fight JS</h3>
+                        <p class="text-gray-400">The repository "Project-Fight-JS" is a JavaScript-based project that focuses on developing interactive and dynamic elements using HTML, CSS, and JavaScript. The project seems to include functionality for user interaction, potentially a game or simulation, though specific details or documentation are not provided on the repository's page. It uses a combination of JavaScript (72.5%), HTML (20.7%), and CSS (6.8%) to implement its features.</p>
+                        <a href="https://github.com/camonn/Project-Fight-JS" target="_blank" class="text-blue-500 hover:underline mt-4 block">Ver no GitHub</a>
+                    </div>
                 </div>
-            </a>
-
+            </div>
         </div>
-    </div>
-</section>
-
+    </section>
 
     <!-- Contato Section -->
-    <section id="contato" class="container mx-auto px-6 py-20 bg-gray-800">
-        <h2 class="text-4xl font-bold text-yellow-500 text-center mb-8">Contato</h2>
-        <form id="contact-form" class="max-w-lg mx-auto">
-            <div class="mb-6">
-                <label for="name" class="block text-lg font-medium text-gray-300">Nome</label>
-                <input type="text" id="name" class="form-input" required>
-            </div>
-            <div class="mb-6">
-                <label for="email" class="block text-lg font-medium text-gray-300">Email</label>
-                <input type="email" id="email" class="form-input" required>
-            </div>
-            <div class="mb-6">
-                <label for="message" class="block text-lg font-medium text-gray-300">Mensagem</label>
-                <textarea id="message" rows="4" class="form-input" required></textarea>
-            </div>
-            <button type="submit" class="btn-submit">Enviar</button>
-        </form>
+    <section id="contact" class="py-16 px-6 section-bg">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-6 section-title">Contato</h2>
+            <p class="text-lg mb-8">Entre em contato para mais informações ou para discutir projetos!</p>
+            <form id="contactForm" class="space-y-6">
+                <input type="text" id="name" name="name" placeholder="Seu Nome" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="email" id="email" name="email" placeholder="Seu E-mail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <textarea id="message" name="message" placeholder="Sua Mensagem" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <button type="submit" class="w-full bg-blue-500 text-white py-3 rounded-lg text-lg hover:bg-blue-400 transition duration-300">Enviar</button>
+            </form>
+        </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 py-6 text-center">
-        <p class="text-gray-500">&copy; 2024 Camonn Ritse. Todos os direitos reservados.</p>
-    </footer>
-
+    <script src="script.js"></script>
 </body>
 </html>
